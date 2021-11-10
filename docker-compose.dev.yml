@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+
+  blackfire:
+    build:
+      dockerfile: Dockerfile
+      context: ./docker/blackfire
+    image: blackfire_agent:latest
+    restart: unless-stopped
+    environment:
+      - BLACKFIRE_LOG_LEVEL=3
+      - BLACKFIRE_SOCKET=tcp://0.0.0.0:${BLACKFIRE_PORT:-8307}
+      - BLACKFIRE_SERVER_ID=${BLACKFIRE_SERVER_ID:-NANANA}
+      - BLACKFIRE_SERVER_TOKEN=${BLACKFIRE_SERVER_TOKEN:-NANANA}
+    networks:
+      - shared_network
+
+networks:
+  shared_network:
+    driver: bridge
