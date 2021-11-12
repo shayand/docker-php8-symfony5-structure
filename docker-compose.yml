@@ -114,7 +114,7 @@ services:
     command: minio server /data
     restart: unless-stopped
     ports:
-      - "${MINIO_PORT:-9999}:9000"
+      - "${MINIO_PORT:-9998}:9000"
     volumes:
       - ./public/fstorage:/data
     networks:
