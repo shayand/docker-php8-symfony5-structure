@@ -11,3 +11,7 @@
 ###< symfony/framework-bundle ###
 ./composer.lock
 ./symfony.lock
+/docker/nginx/config/
+/docker/nginx/config/*
+/public/fstorage/
+/public/fstorage/*
