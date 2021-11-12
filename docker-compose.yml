@@ -39,6 +39,7 @@ services:
       - database
       - elasticsearch
       - redis
+      - minio
 
   nginx:
     build:
@@ -104,8 +105,20 @@ services:
     networks:
       - shared_network
     volumes:
-      - './docker/cron.txt:/etc/crontabs/root:z'
+      - ./docker/cron.txt:/etc/crontabs/root:z
     restart: unless-stopped
+
+  minio:
+    image: minio/minio
+    command: minio server /data
+    restart: unless-stopped
+    ports:
+      - "${MINIO_PORT:-9999}:9000"
+    volumes:
+      - ./public/fstorage:/data
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:-minioadmin}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-C6JWe23W7sxChC}
 
 volumes:
 ###> doctrine/doctrine-bundle ###
